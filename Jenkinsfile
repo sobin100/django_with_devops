@@ -6,12 +6,7 @@ pipeline{
     DOCKER_TAG = "ci"
   }
   stages {
-    stage('Git clone') {
-      steps {
-       git branch: 'main', url: 'https://github.com/sobin100/django_with_devops.git'
-        
-      }
-    }
+    
     stage('Checkout') {
       steps {
         checkout scm
