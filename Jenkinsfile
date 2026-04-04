@@ -3,7 +3,7 @@ pipeline{
 
   environment {
     DOCKER_IMAGE = "sobin/mydjangoapp"
-    DOCKER-TAG = "ci"
+    DOCKER_TAG = "ci"
   }
   satges {
     stage('Checkout') {
