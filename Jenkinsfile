@@ -22,9 +22,27 @@ pipeline{
         sh 'docker compose run --rm web python manage.py test'
       }
     }
-    stage('Cleanup') {
+    stage('Push') {
       steps {
-        sh 'docker compose down'
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
+          sh '''
+              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              docker tag $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_IMAGE:latest
+              docker push $DOCKER_IMAGE:$DOCKER_TAG
+              docker push $DOCKER_IMAGE:latest
+
+          '''
+        }
+        
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh '''
+            docker compose down
+            docker compose pull
+            docker compose up -d
+        '''
       }
     }
   }
