@@ -2,7 +2,7 @@ pipeline{
   agent any
 
   environment {
-    DOCKER_IMAGE = "sobin/mydjangoapp"
+    DOCKER_IMAGE = "sobine/mydjangoapp"
     DOCKER_TAG = "ci"
   }
   stages {
