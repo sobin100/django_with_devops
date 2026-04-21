@@ -17,8 +17,10 @@ pipeline{
         sh 'docker compose build'
       }
     }
-    stage('Test') {
+    stage('Test and migrations') {
       steps {
+        sh 'docker compose run --rm web python manage.py makemigrations'
+        sh 'docker compose run --rm web python manage.py migrate'
         sh 'docker compose run --rm web python manage.py test'
       }
     }
