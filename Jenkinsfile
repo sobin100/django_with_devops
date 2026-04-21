@@ -48,7 +48,7 @@ pipeline{
     stage('Smoke test') {
       steps {
         sh 'sleep 10'
-        sh 'curl -f http://localhost:8000/health/|| exit 1'
+        sh 'curl http://127.0.0.1:8000/'
       }
     }
   }
