@@ -4,6 +4,10 @@ from django.shortcuts import render, get_object_or_404,redirect
 from .models import Post
 
 from . form import Postform
+from django.http import JsonResponse
+
+def health(request):
+    return JsonResponse({"status": "ok"})
 
 
 
