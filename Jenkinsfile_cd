@@ -5,34 +5,36 @@ pipeline{
 
 
 
-}
-stages{
-    stage('Deploy'){
-        steps {
-            sh '''
-                ssh $SERVER_HOST "
-                docker compose down &&
-                docker compose pull &&
-                docker compose up -d
-                "
-            
-            '''
+
+    stages{
+        stage('Deploy'){
+            steps {
+                sh '''
+                    ssh $SERVER_HOST "
+                    docker compose down &&
+                    docker compose pull &&
+                    docker compose up -d
+                    "
+                
+                '''
+            }
+
         }
 
-    }
-
-    stage('Smoke test'){
-        steps {
-            sh 'sleep 10'
-            sh 'curl http://13.216.2.10:8000'
+        stage('Smoke test'){
+            steps {
+                sh 'sleep 10'
+                sh 'curl http://13.216.2.10:8000'
+            }
         }
     }
     post {
-    success {
-      echo 'CI pipeline completed successfully'
+       success {
+         echo 'CD pipeline completed successfully'
+       }
+       failure {
+         echo 'CD pipeline failed'
+       }
+    
     }
-    failure {
-      echo 'CI pipeline failed'
-    }
-  }
 }
