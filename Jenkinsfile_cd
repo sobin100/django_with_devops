@@ -27,4 +27,12 @@ stages{
             sh 'curl http://13.216.2.10:8000'
         }
     }
+    post {
+    success {
+      echo 'CI pipeline completed successfully'
+    }
+    failure {
+      echo 'CI pipeline failed'
+    }
+  }
 }
