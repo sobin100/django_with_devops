@@ -10,10 +10,10 @@ pipeline{
         stage('Deploy'){
             steps {
                 sh '''
-                    ssh ec2-user@13.216.2.10"
-                    docker compose down &&
-                    docker compose pull &&
-                    docker compose up -d
+                    ssh ec2-user@13.216.2.10 "
+                        docker compose down &&
+                        docker compose pull &&
+                        docker compose up -d
                     "
                 
                 '''
