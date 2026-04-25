@@ -17,7 +17,7 @@ pipeline{
         sh 'docker compose build'
       }
     }
-    stage('Test and migrations') {
+    stage('Migrations and Test') {
       steps {
         sh 'docker compose run --rm web python manage.py makemigrations'
         sh 'docker compose run --rm web python manage.py migrate'
@@ -38,21 +38,7 @@ pipeline{
         
       }
     }
-    stage('Deploy') {
-      steps {
-        sh '''
-            docker compose down
-            docker compose pull
-            docker compose up -d
-        '''
-      }
-    }
-    stage('Smoke test') {
-      steps {
-        sh 'sleep 10'
-        sh 'curl http://127.0.0.1:8000/'
-      }
-    }
+   
   }
 
 

@@ -1,0 +1,30 @@
+
+pipeline{
+
+    agent any
+
+
+
+}
+stages{
+    stage('Deploy'){
+        steps {
+            sh '''
+                ssh $SERVER_HOST "
+                docker compose down &&
+                docker compose pull &&
+                docker compose up -d
+                "
+            
+            '''
+        }
+
+    }
+
+    stage('Smoke test'){
+        steps {
+            sh 'sleep 10'
+            sh 'curl http://13.216.2.10:8000'
+        }
+    }
+}
