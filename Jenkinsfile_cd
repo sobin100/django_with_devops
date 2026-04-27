@@ -10,7 +10,10 @@ pipeline{
         stage('Deploy'){
             steps {
                 sh '''
-                    ssh ec2-user@13.216.2.10 "
+                    ssh ec2-user@98.92.248.97 "
+                        cd /home/ec2-user/blog
+                        source myenv/bin/activate
+                        cd /home/ec2-user/blog/django_with_devops
                         docker compose down &&
                         docker compose pull &&
                         docker compose up -d
@@ -24,7 +27,7 @@ pipeline{
         stage('Smoke test'){
             steps {
                 sh 'sleep 10'
-                sh 'curl http://13.216.2.10:8000'
+                sh 'curl http://98.92.248.97:8000'
             }
         }
     }
