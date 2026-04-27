@@ -11,9 +11,11 @@ pipeline{
             steps {
                 sh '''
                     ssh ec2-user@98.92.248.97 "
+                        
                         cd /home/ec2-user/blog &&
                         source myenv/bin/activate &&
                         cd /home/ec2-user/blog/django_with_devops &&
+                        git pull orgin main &&
                         docker compose down &&
                         docker compose pull &&
                         docker compose up -d
