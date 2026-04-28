@@ -10,7 +10,7 @@ pipeline{
         stage('Deploy'){
             steps {
                 sh '''
-                    ssh -i /home/sobin/devops-django.pem ec2-user@98.92.248.97 "
+                    ssh -i /home/sobin/devops-django.pem ec2-user@44.221.44.138.compute-1.amazonaws.com "
                         
                         cd /home/ec2-user/blog &&
                         source myenv/bin/activate &&
@@ -29,7 +29,7 @@ pipeline{
         stage('Smoke test'){
             steps {
                 sh 'sleep 10'
-                sh 'curl http://98.92.248.97:8000'
+                sh 'curl http://44.221.44.138:8000'
             }
         }
     }
