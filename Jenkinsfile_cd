@@ -10,7 +10,7 @@ pipeline{
         stage('Deploy'){
             steps {
                 sh '''
-                    ssh -i /home/sobin/devops-django.pem ec2-user@34.231.110.185 "
+                    ssh -i /home/sobin/devops-django.pem ec2-user@ec2-34-231-110-185.compute-1.amazonaws.com "
                         
                         cd /home/ec2-user/blog &&
                         source myenv/bin/activate &&
