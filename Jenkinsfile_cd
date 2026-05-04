@@ -15,7 +15,7 @@ pipeline{
                         cd /home/ec2-user/blog &&
                         source myenv/bin/activate &&
                         cd /home/ec2-user/blog/django_with_devops &&
-                        git pull orgin main &&
+                        git pull origin main &&
                         docker compose down &&
                         docker compose pull &&
                         docker compose up -d
