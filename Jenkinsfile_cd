@@ -4,7 +4,7 @@ pipeline{
     agent any
 
     environment {
-        HOST_NAME= "3.83.32.46"
+        HOST_NAME= "ec2-user@ec2-3.83.32.46.compute-1.amazonaws.com"
 
     }
 
