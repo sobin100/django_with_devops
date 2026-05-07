@@ -3,26 +3,32 @@ pipeline{
 
     agent any
 
+    environment {
+        HOST_NAME= "ec2-user@3.83.32.46"
+
+    }
+
 
 
 
     stages{
         stage('Deploy'){
             steps {
-                sh '''
-                    ssh -o StrictHostKeyChecking=no -i SSH_KEY HOST_NAME "
-                        
-                        cd /home/ec2-user/blog &&
-                        source myenv/bin/activate &&
-                        cd /home/ec2-user/blog/django_with_devops &&
-                        git pull origin main &&
-                        docker-compose down &&
-                        docker-compose pull &&
-                        docker-compose up -d &&
-                        docker-compose exec web python manage.py migrate --noinput
-                    "
-                
-                '''
+                sshagent(['EC2_SSH_KEY'])
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no  HOST_NAME "
+                            
+                            cd /home/ec2-user/blog &&
+                            source myenv/bin/activate &&
+                            cd /home/ec2-user/blog/django_with_devops &&
+                            git pull origin main &&
+                            docker-compose down &&
+                            docker-compose pull &&
+                            docker-compose up -d &&
+                            docker-compose exec web python manage.py migrate --noinput
+                        "
+                    
+                    '''
             }
 
         }
@@ -30,7 +36,7 @@ pipeline{
         stage('Smoke test'){
             steps {
                 sh 'sleep 10'
-                sh 'curl http://3.234.210.134:8000'
+                sh 'curl http://3.83.32.46:8000'
             }
         }
     }
