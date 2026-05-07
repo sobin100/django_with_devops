@@ -3,6 +3,10 @@ pipeline{
 
     agent any
 
+    environment {
+        HOST_NAME= "ec2-user@ec2-3-83-32-46.compute-1.amazonaws.com "
+    }
+
     
 
 
@@ -13,7 +17,7 @@ pipeline{
             steps {
                 sshagent(['EC2_SSH_KEY']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no  ec2-user@ec2-3.83.32.46.compute-1.amazonaws.com "
+                        ssh -o StrictHostKeyChecking=no  HOST_NAME "
                             
                             cd /home/ec2-user/blog &&
                             source myenv/bin/activate &&
