@@ -14,7 +14,7 @@ pipeline{
     stages{
         stage('Deploy'){
             steps {
-                sshagent(['EC2_SSH_KEY'])
+                sshagent(['EC2_SSH_KEY']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no  HOST_NAME "
                             
@@ -29,6 +29,7 @@ pipeline{
                         "
                     
                     '''
+                }
             }
 
         }
